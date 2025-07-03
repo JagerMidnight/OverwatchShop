@@ -1,0 +1,57 @@
+{
+    "weapon": {
+        "name": "Hellfire Shotguns",
+        "icon": "https://placehold.co/40x40/000000/FFFFFF?text=W",
+        "description": "Short-range spread weapons."
+    },
+    "ultimate": {
+        "name": "Death Blossom",
+        "icon": "https://placehold.co/40x40/000000/FFFFFF?text=U",
+        "description": "Damage all nearby enemies."
+    },
+    "abilities": [
+        {
+            "name": "Shadow Step",
+            "icon": "https://placehold.co/40x40/000000/FFFFFF?text=S",
+            "description": "Teleport to a targeted location."
+        },
+        {
+            "name": "Wraith Form",
+            "icon": "https://placehold.co/40x40/000000/FFFFFF?text=W",
+            "description": "Move faster and become invulnerable, but you cannot shoot."
+        }
+    ],
+    "passive": [
+        {
+            "name": "The Reaping",
+            "icon": "https://placehold.co/40x40/000000/FFFFFF?text=P",
+            "description": "Dealing damage heals you."
+        },
+        {
+            "name": "Role: Damage",
+            "icon": "https://placehold.co/40x40/000000/FFFFFF?text=R",
+            "description": "Damaging an enemy temporarily reduces their healing received."
+        }
+    ],
+    "perks": {
+        "minor": [
+            {
+                "name": "Death's Shadow",
+                "icon": "https://placehold.co/40x40/000000/FFFFFF?text=D",
+                "description": "Shadow Step reloads Hellfire Shotguns and has 25% increased range."
+            }
+        ],
+        "major": [
+            {
+                "name": "Dire Triggers",
+                "icon": "https://placehold.co/40x40/000000/FFFFFF?text=T",
+                "description": "Use to fire a volley with long range accuracy from both Hellfire Shotguns."
+            },
+            {
+                "name": "Ravenous Wraith",
+                "icon": "https://placehold.co/40x40/000000/FFFFFF?text=R",
+                "description": "Leaving Wraith Form grants 40% additional lifesteal for 3 seconds."
+            }
+        ]
+    }
+}
