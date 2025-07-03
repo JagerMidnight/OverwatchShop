@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overwatch 2 Hero Cosmetics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff5e00;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e64e00;
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #ff5e00;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .close-button:hover {
+            color: #e64e00;
+        }
+        .hero-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .info-section {
+            background-color: #0a0a0a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #333;
+        }
+        .info-section h4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff5e00;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        .ability-item, .perk-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        .ability-item img, .perk-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid #ff5e00;
+            flex-shrink: 0;
+        }
+        .ability-item div, .perk-item div {
+            flex-grow: 1;
+        }
+        .ability-item h5, .perk-item h5 {
+            font-weight: bold;
+            color: #eee;
+            margin-bottom: 0.25rem;
+        }
+        .ability-item p, .perk-item p {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="fixed top-0 left-0 right-0 bg-gray-800 bg-opacity-70 backdrop-blur-sm p-4 flex justify-between items-center z-10 rounded-b-lg shadow-lg">
+        <div class="flex items-center space-x-4">
+            <h1 id="hero-display-name" class="text-3xl font-bold italic text-orange-400 uppercase"></h1>
+        </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row w-full max-w-7xl mt-24 lg:mt-32 bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+
+        <div class="w-full lg:w-1/4 bg-gray-900 p-6 space-y-4 border-b lg:border-b-0 lg:border-r border-gray-700 overflow-y-auto max-h-[calc(100vh-180px)] rounded-t-lg lg:rounded-t-none lg:rounded-l-lg">
+            <ul class="space-y-3 text-lg">
+                <li id="skins-category" class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=S" alt="Skins Icon" class="mr-3 rounded-full">
+                        <span>SKINS</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=W" alt="Weapon Skins Icon" class="mr-3 rounded-full">
+                        <span>WEAPON SKINS</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=H" alt="Highlight Intros Icon" class="mr-3 rounded-full">
+                        <span>HIGHLIGHT INTROS</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=E" alt="Emotes Icon" class="mr-3 rounded-full">
+                        <span>EMOTES</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=V" alt="Victory Poses Icon" class="mr-3 rounded-full">
+                        <span>VICTORY POSES</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=C" alt="Weapon Charms Icon" class="mr-3 rounded-full">
+                        <span>WEAPON CHARMS</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=U" alt="Souvenirs Icon" class="mr-3 rounded-full">
+                        <span>SOUVENIRS</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=L" alt="Voice Lines Icon" class="mr-3 rounded-full">
+                        <span>VOICE LINES</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=P" alt="Sprays Icon" class="mr-3 rounded-full">
+                        <span>SPRAYS</span>
+                    </div>
+                </li>
+                <li class="flex items-center justify-between p-2 rounded-md hover:bg-gray-700 cursor-pointer transition-colors">
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/24x24/000000/FFFFFF?text=V" alt="Weapon Variants Icon" class="mr-3 rounded-full">
+                        <span>WEAPON VARIANTS</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex-1 flex items-center justify-center p-6 relative bg-gray-800">
+            <img id="hero-model-image" src="" alt="Hero Model" class="max-h-[70vh] w-auto object-contain rounded-lg shadow-lg border-2 border-gray-700">
+        </div>
+
+        <div class="w-full lg:w-1/4 bg-gray-900 p-6 space-y-4 border-t lg:border-t-0 lg:border-l border-gray-700 rounded-b-lg lg:rounded-b-none lg:rounded-r-lg flex flex-col justify-between">
+            <div>
+                <button id="hero-info-button" class="w-full py-3 bg-orange-600 hover:bg-orange-700 rounded-md font-semibold text-lg mb-4 transition-colors">HERO INFORMATION</button>
+                <div class="mt-8">
+                    <h3 id="hero-role" class="text-xl font-bold text-orange-400 uppercase mb-2"></h3>
+                    <p id="hero-description" class="text-gray-300 text-sm leading-relaxed"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="skins-modal" class="modal-overlay">
+        <div class="modal-content w-full max-w-4xl">
+            <button class="close-button" onclick="closeSkinsModal()">&times;</button>
+            <h2 class="text-3xl font-bold text-orange-400 mb-6 text-center">SKINS</h2>
+            <div id="skins-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            </div>
+        </div>
+    </div>
+
+    <div id="hero-info-modal" class="modal-overlay">
+        <div class="modal-content w-full max-w-5xl">
+            <button class="close-button" onclick="closeHeroInfoModal()">&times;</button>
+            <h2 class="text-3xl font-bold text-orange-400 mb-6 text-center">HERO INFORMATION</h2>
+            <div id="hero-info-details" class="hero-info-grid">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const heroesData = {
+            "dva": { name: "D.Va", role: "TANK", description: "D.Va is a former pro gamer who pilots a pink mech suit, using its powerful fusion cannons and defense matrix to protect her team and dish out damage. She can eject from her mech and continue fighting as a nimble pilot." },
+            "doomfist": { name: "Doomfist", role: "TANK", description: "A charismatic and ruthless leader, Doomfist is a master of martial arts and wears a powerful gauntlet. He uses his abilities to punch through enemy lines, uppercut foes, and deliver devastating ground slams." },
+            "hazard": { name: "Hazard", role: "DAMAGE", description: "A mysterious operative specializing in area denial and toxic warfare. Hazard controls the battlefield with corrosive traps and a venomous arsenal, slowly weakening enemies before delivering the final blow." },
+            "junkerqueen": { name: "Junker Queen", role: "TANK", description: "The ruthless ruler of Junkertown, Junker Queen commands the battlefield with her massive axe and magnetic gauntlet. She thrives in close quarters, dealing heavy damage and inspiring her allies." },
+            "mauga": { name: "Mauga", role: "TANK", description: "A towering force of nature with two chainguns, Mauga charges into battle with reckless abandon. His abilities allow him to sustain himself in the fight and create chaos among enemy ranks." },
+            "orisa": { name: "Orisa", role: "TANK", description: "A quadrupedal robot protector, Orisa anchors her team with a powerful energy javelin and a protective Fortify ability. She can pull enemies together and unleash a devastating ultimate." },
+            "ramattra": { name: "Ramattra", role: "TANK", description: "A conflicted omnic leader, Ramattra can switch between Omnic Form, where he projects a barrier, and Nemesis Form, where he gains increased armor and a powerful punch." },
+            "reinhardt": { name: "Reinhardt", role: "TANK", description: "A chivalrous German crusader, Reinhardt charges into battle with his rocket-powered hammer and a massive energy barrier, protecting his allies and smashing his foes." },
+            "roadhog": { name: "Roadhog", role: "TANK", description: "A ruthless, hulking killer from the Australian Outback, Roadhog uses his Chain Hook to pull enemies close and his Scrap Gun to blast them into oblivion. He can also heal himself with a deep breath." },
+            "sigma": { name: "Sigma", role: "TANK", description: "An eccentric astrophysicist who gained control over gravity after an orbital experiment went wrong. Sigma manipulates the battlefield with hyperspheres and a kinetic grasp." },
+            "winston": { name: "Winston", role: "TANK", description: "A super-intelligent, genetically engineered gorilla and brilliant scientist. Winston leaps into battle with his Tesla Cannon, deploying a protective barrier and unleashing primal rage." },
+            "wreckingball": { name: "Wrecking Ball", role: "TANK", description: "An ingenious hamster named Hammond, who pilots a heavily armed, spherical mech. Wrecking Ball rolls through enemies, deploys mines, and uses his grappling claw for high-speed maneuvers." },
+            "zarya": { name: "Zarya", role: "TANK", description: "A strong Russian weightlifter and soldier, Zarya uses her particle cannon to emit powerful energy barriers that absorb damage and increase her weapon's power. She can also pull enemies into a Graviton Surge." },
+            "ashe": { name: "Ashe", role: "DAMAGE", description: "The ambitious and calculating leader of the Deadlock Gang, Ashe wields a lever-action rifle, dynamite, and her loyal omnic butler B.O.B. to dominate the battlefield." },
+            "bastion": { name: "Bastion", role: "DAMAGE", description: "A curious and peaceful omnic combat automaton that can transform between a mobile recon mode and a stationary, powerful sentry mode. Bastion also has a devastating Artillery ultimate." },
+            "cassidy": { name: "Cassidy", role: "DAMAGE", description: "A former Blackwatch operative and skilled gunslinger, Cassidy uses his Peacekeeper revolver for precision shots and can unleash a powerful Deadeye ultimate to eliminate multiple targets." },
+            "echo": { name: "Echo", role: "DAMAGE", description: "An adaptive omnic with a powerful artificial intelligence, Echo can fly, fire sticky bombs, and duplicate enemy heroes, gaining their abilities for a short time." },
+            "freja": { name: "Freja", role: "DAMAGE", description: "A swift and agile warrior from the northern lands, Freja wields twin blades and uses elemental magic to empower her attacks and evade enemies. She excels at disrupting enemy formations." },
+            "genji": { name: "Genji", role: "DAMAGE", description: "A cyborg ninja who has embraced his augmented body, Genji deflects projectiles, dashes through enemies, and unleashes a powerful Dragonblade ultimate." },
+            "hanzo": { name: "Hanzo", role: "DAMAGE", description: "A master archer and assassin, Hanzo uses his bow for precise shots, can reveal enemies with Sonic Arrow, and unleash a Spirit Dragon ultimate that devastates foes." },
+            "junkrat": { name: "Junkrat", role: "DAMAGE", description: "An explosives-obsessed anarchist from the Australian Outback, Junkrat launches bouncing grenades, deploys steel traps, and can unleash a remote-controlled Rip-Tire." },
+            "mei": { name: "Mei", role: "DAMAGE", description: "A brilliant climatologist who uses her Endothermic Blaster to freeze enemies and create ice walls. Mei can also summon a localized blizzard to control the battlefield." },
+            "pharah": { name: "Pharah", role: "DAMAGE", description: "A highly decorated security chief who wears a combat armor suit, Pharah soars through the air with her jump jet and unleashes barrages of rockets from above." },
+            "reaper": { name: "Reaper", role: "DAMAGE", description: "Some speak of a black-robed terrorist known only as the Reaper. His identity and motives are a mystery. What is known is that where he appears, death follows." },
+            "sojourn": { name: "Sojourn", role: "DAMAGE", description: "A highly mobile, cybernetically enhanced captain from Canada, Sojourn uses her railgun for powerful primary and secondary fire, and can slide into battle with a power slide." },
+            "soldier76": { name: "Soldier: 76", role: "DAMAGE", description: "A vigilante who operates outside the law, Soldier: 76 is a highly trained combat veteran who uses his pulse rifle, biotic field for healing, and tactical visor for auto-aiming." },
+            "sombra": { name: "Sombra", role: "DAMAGE", description: "A notorious hacker and infiltrator, Sombra uses her machine pistol, can hack enemies and health packs, and becomes invisible to sneak behind enemy lines." },
+            "symmetra": { name: "Symmetra", role: "DAMAGE", description: "An architect who manipulates hard light, Symmetra deploys sentry turrets, projects energy barriers, and can create teleporters to quickly move her team." },
+            "torbjorn": { name: "Torbjörn", role: "DAMAGE", description: "A brilliant engineer who deploys auto-firing turrets and can unleash a molten core, covering an area with pools of slag. Torbjörn also wields a rivet gun and a forge hammer." },
+            "tracer": { name: "Tracer", role: "DAMAGE", description: "An adventurous former pilot who can manipulate her own time, Tracer blinks through space, recalls her position, and throws pulse bombs to quickly eliminate enemies." },
+            "venture": { name: "Venture", role: "DAMAGE", description: "A daring archaeologist and explorer who wields a powerful drill, Venture can burrow underground, unleash seismic charges, and create tremors to disrupt enemies." },
+            "widowmaker": { name: "Widowmaker", role: "DAMAGE", description: "A ruthless assassin and sniper, Widowmaker eliminates targets from afar with her sniper rifle, deploys venom mines, and uses her grappling hook for agile positioning." },
+            "ana": { name: "Ana", role: "SUPPORT", description: "A veteran sniper and one of Overwatch's founding members, Ana heals allies and damages enemies with her Biotic Rifle, can put foes to sleep, and boost allies with Nano Boost." },
+            "baptiste": { name: "Baptiste", role: "SUPPORT", description: "A combat medic and former Talon operative, Baptiste uses his Biotic Launcher to heal allies or damage enemies, deploys Immortality Field to save teammates, and can amplify damage with Amplification Matrix." },
+            "brigitte": { name: "Brigitte", role: "SUPPORT", description: "A valiant squire and engineer, Brigitte protects her allies with her Barrier Shield, heals them with Repair Pack, and can stun enemies with her Whip Shot." },
+            "illari": { name: "Illari", role: "SUPPORT", description: "A solar-powered healer from Peru, Illari uses her Solar Rifle to heal allies and unleash powerful solar energy blasts. She can also deploy a Healing Pylon and unleash a Sunstruck ultimate." },
+            "juno": { name: "Juno", role: "SUPPORT", description: "A nimble and elusive support hero, Juno uses sound waves to heal allies and disorient enemies. Her abilities allow her to quickly reposition and provide crucial utility to her team." },
+            "kiriko": { name: "Kiriko", role: "SUPPORT", description: "A swift and agile protector, Kiriko uses her Ofuda to heal allies, can teleport to teammates, and throws Kunai for precise damage. Her ultimate creates a path for allies to rush forward." },
+            "lifeweaver": { name: "Lifeweaver", role: "SUPPORT", description: "A brilliant botanist who uses biolight technology to heal and protect allies. Lifeweaver can create platforms, pull teammates to safety, and deploy a massive Tree of Life." },
+            "lucio": { name: "Lúcio", role: "SUPPORT", description: "An international celebrity and freedom fighter, Lúcio uses his Sonic Amplifier to heal allies or boost their speed, and can create a Sound Barrier to protect his team." },
+            "mercy": {
+                name: "Mercy",
+                role: "SUPPORT",
+                description: "A guardian angel and brilliant scientist, Mercy heals and boosts allies with her Caduceus Staff, can fly to teammates, and resurrects fallen comrades."
+            },
+            "moira": { name: "Moira", role: "SUPPORT", description: "A brilliant but controversial geneticist, Moira drains health from enemies and heals allies with her Biotic Grasp, can fade through space, and unleashes a powerful Coalescence beam." },
+            "wuyang": { name: "Wuyang", role: "SUPPORT", description: "A mystical healer from the East, Wuyang channels ancient energies to mend wounds and protect allies. Her abilities focus on sustained healing and defensive buffs for her team." },
+            "zenyatta": { name: "Zenyatta", role: "SUPPORT", description: "An omnic monk who seeks spiritual enlightenment, Zenyatta heals allies with Orb of Harmony, debuffs enemies with Orb of Discord, and becomes invulnerable while healing multiple allies with Transcendence." }
+        };
+
+        let currentHeroId = null;
+
+        function getHeroNameFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('hero');
+        }
+
+        async function populateHeroPage() {
+            currentHeroId = getHeroNameFromUrl();
+            const hero = heroesData[currentHeroId];
+
+            if (hero) {
+                document.title = `Overwatch 2 - ${hero.name}`;
+                document.getElementById('hero-display-name').innerText = hero.name.toUpperCase();
+                document.getElementById('hero-role').innerText = hero.role;
+                document.getElementById('hero-description').innerText = hero.description;
+                document.getElementById('hero-model-image').src = `/assets/hero_models/${currentHeroId}.webp`;
+
+            } else {
+                document.title = "Hero Not Found";
+                document.getElementById('hero-display-name').innerText = "HERO NOT FOUND";
+                document.getElementById('hero-role').innerText = "N/A";
+                document.getElementById('hero-description').innerText = "The hero you are looking for does not exist in our database. Please check the URL and try again.";
+                document.getElementById('hero-model-image').src = "https://placehold.co/400x600/333333/FFFFFF?text=Hero+Not+Found";
+            }
+        }
+
+        async function openSkinsModal() {
+            const skinsModal = document.getElementById('skins-modal');
+            const skinsGrid = document.getElementById('skins-grid');
+            skinsGrid.innerHTML = '';
+            const loadingMessage = document.createElement('p');
+            loadingMessage.className = 'text-center text-gray-400 col-span-full';
+            loadingMessage.textContent = 'Loading skins...';
+            skinsGrid.appendChild(loadingMessage);
+
+            try {
+                const response = await fetch(`/assets/cosmetics/skins/${currentHeroId}.json`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const skins = await response.json();
+
+                skinsGrid.innerHTML = '';
+                if (skins.length > 0) {
+                    skins.forEach(skin => {
+                        const skinCardDiv = document.createElement('div');
+                        skinCardDiv.className = 'bg-gray-800 rounded-lg shadow-md p-3 text-center';
+
+                        const img = document.createElement('img');
+                        img.className = 'w-full h-32 object-cover rounded-md mb-2 border border-gray-700';
+                        img.src = skin.image;
+                        img.alt = skin.name;
+                        img.onerror = () => { img.src = 'https://placehold.co/150x100/333333/FFFFFF?text=Image+Error'; };
+
+                        const p = document.createElement('p');
+                        p.className = 'text-sm font-semibold';
+                        p.textContent = skin.name;
+
+                        skinCardDiv.appendChild(img);
+                        skinCardDiv.appendChild(p);
+                        skinsGrid.appendChild(skinCardDiv);
+                    });
+                } else {
+                    const noSkinsMessage = document.createElement('p');
+                    noSkinsMessage.className = 'text-center text-gray-400 col-span-full';
+                    noSkinsMessage.textContent = 'No skins found for this hero.';
+                    skinsGrid.appendChild(noSkinsMessage);
+                }
+            } catch (error) {
+                console.error('Error fetching skins:', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.className = 'text-center text-red-500 col-span-full';
+                errorMessage.textContent = `Failed to load skins. Error: ${error.message}`;
+                skinsGrid.appendChild(errorMessage);
+            }
+            skinsModal.classList.add('active');
+        }
+
+        function closeSkinsModal() {
+            document.getElementById('skins-modal').classList.remove('active');
+            document.getElementById('skins-grid').innerHTML = '';
+        }
+
+        async function openHeroInfoModal() {
+            const heroInfoModal = document.getElementById('hero-info-modal');
+            const heroInfoDetails = document.getElementById('hero-info-details');
+            heroInfoDetails.innerHTML = '';
+            const loadingMessage = document.createElement('p');
+            loadingMessage.className = 'text-center text-gray-400 col-span-full';
+            loadingMessage.textContent = 'Loading hero information...';
+            heroInfoDetails.appendChild(loadingMessage);
+
+            try {
+                const response = await fetch(`/_heroinfo/${currentHeroId}.json`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const info = await response.json();
+
+                heroInfoDetails.innerHTML = '';
+
+                const createInfoSection = (title, items, type) => {
+                    if (!items || items.length === 0) return;
+
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'info-section';
+
+                    const h4 = document.createElement('h4');
+                    h4.textContent = title.toUpperCase();
+                    sectionDiv.appendChild(h4);
+
+                    if (type === 'perks') {
+                        if (items.minor && items.minor.length > 0) {
+                            const minorHeader = document.createElement('p');
+                            minorHeader.className = 'text-gray-400 text-sm mb-2';
+                            minorHeader.textContent = 'MINOR - Selectable at level 2';
+                            sectionDiv.appendChild(minorHeader);
+                            items.minor.forEach(item => {
+                                sectionDiv.appendChild(createAbilityPerkItem(item, 'perk-item'));
+                            });
+                        }
+                        if (items.major && items.major.length > 0) {
+                            const majorHeader = document.createElement('p');
+                            majorHeader.className = 'text-gray-400 text-sm mt-4 mb-2';
+                            majorHeader.textContent = 'MAJOR - Selectable at level 3';
+                            sectionDiv.appendChild(majorHeader);
+                            items.major.forEach(item => {
+                                sectionDiv.appendChild(createAbilityPerkItem(item, 'perk-item'));
+                            });
+                        }
+                    } else {
+                        items.forEach(item => {
+                            sectionDiv.appendChild(createAbilityPerkItem(item, 'ability-item'));
+                        });
+                    }
+                    heroInfoDetails.appendChild(sectionDiv);
+                };
+
+                const createAbilityPerkItem = (item, className) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = className;
+
+                    const img = document.createElement('img');
+                    img.src = item.icon;
+                    img.alt = item.name + ' Icon';
+                    img.onerror = () => { img.src = 'https://placehold.co/40x40/000000/FFFFFF?text=Icon'; };
+
+                    const textDiv = document.createElement('div');
+                    const h5 = document.createElement('h5');
+                    h5.textContent = item.name.toUpperCase();
+                    const p = document.createElement('p');
+                    p.textContent = item.description;
+
+                    textDiv.appendChild(h5);
+                    textDiv.appendChild(p);
+                    itemDiv.appendChild(img);
+                    itemDiv.appendChild(textDiv);
+                    return itemDiv;
+                };
+
+                if (info.weapon) {
+                    const weaponSection = document.createElement('div');
+                    weaponSection.className = 'info-section';
+                    const h4Weapon = document.createElement('h4');
+                    h4Weapon.textContent = 'WEAPON';
+                    weaponSection.appendChild(h4Weapon);
+                    weaponSection.appendChild(createAbilityPerkItem(info.weapon, 'ability-item'));
+                    heroInfoDetails.appendChild(weaponSection);
+                }
+
+                if (info.ultimate) {
+                    let targetSection = heroInfoDetails.querySelector('.info-section h4:contains("WEAPON")')?.parentElement;
+                    if (!targetSection) {
+                        targetSection = document.createElement('div');
+                        targetSection.className = 'info-section';
+                        heroInfoDetails.appendChild(targetSection);
+                    }
+                    const h4Ultimate = document.createElement('h4');
+                    h4Ultimate.textContent = 'ULTIMATE';
+                    targetSection.appendChild(h4Ultimate);
+                    targetSection.appendChild(createAbilityPerkItem(info.ultimate, 'ability-item'));
+                }
+
+                createInfoSection('ABILITIES', info.abilities, 'abilities');
+
+                createInfoSection('PASSIVE', info.passive, 'passive');
+
+                createInfoSection('PERKS', info.perks, 'perks');
+
+            } catch (error) {
+                console.error('Error fetching hero info:', error);
+                const errorMessage = document.createElement('p');
+                errorMessage.className = 'text-center text-red-500 col-span-full';
+                errorMessage.textContent = `Failed to load hero information. Error: ${error.message}`;
+                heroInfoDetails.appendChild(errorMessage);
+            }
+            heroInfoModal.classList.add('active');
+        }
+
+        function closeHeroInfoModal() {
+            document.getElementById('hero-info-modal').classList.remove('active');
+            document.getElementById('hero-info-details').innerHTML = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateHeroPage();
+
+            document.getElementById('skins-category').addEventListener('click', openSkinsModal);
+            document.getElementById('hero-info-button').addEventListener('click', openHeroInfoModal);
+        });
+    </script>
+</body>
+</html>
