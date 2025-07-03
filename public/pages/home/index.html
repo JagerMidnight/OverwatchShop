@@ -6,30 +6,70 @@
     <title>Overwatch 2 Hero Gallery</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #0a0a0a;
             color: #fff;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            justify-content: center;
         }
 
-        .item-shop-container {
-            margin-bottom: 40px;
-            text-align: center;
+        header {
+            width: 100%;
+            background-color: #2a2a2a;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 300px;
+            margin: 0 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3a3a3a;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #bbb;
         }
 
         .item-shop-button {
             display: inline-block;
-            padding: 15px 30px;
+            padding: 12px 25px;
             background-color: #ff5e00;
             color: #fff;
             text-decoration: none;
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             border-radius: 8px;
             transition: background-color 0.3s ease;
@@ -40,14 +80,37 @@
             background-color: #e64e00;
         }
 
+        .main-content-wrapper {
+            width: 100%;
+            max-width: 1400px;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .role-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .role-section h2 {
+            font-size: 36px;
+            color: #ff5e00;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid #ff5e00;
+            padding-bottom: 10px;
+            display: inline-block;
+            margin-top: 0;
+            border-radius: 5px;
+        }
+
         .hero-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 25px;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 10px;
             justify-content: center;
+            margin: 0 auto;
         }
 
         .hero-card {
@@ -85,10 +148,40 @@
             letter-spacing: 1px;
         }
 
+        footer {
+            width: 100%;
+            background-color: #2a2a2a;
+            color: #aaa;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            font-size: 14px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
         @media (max-width: 1024px) {
             .hero-grid {
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 gap: 20px;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .header-left {
+                width: 100%;
+                justify-content: center;
+            }
+            .search-bar {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+            }
+            .item-shop-button {
+                width: 100%;
+                text-align: center;
             }
         }
 
@@ -97,9 +190,8 @@
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
                 gap: 15px;
             }
-            .item-shop-button {
-                padding: 12px 25px;
-                font-size: 20px;
+            .role-section h2 {
+                font-size: 30px;
             }
         }
 
@@ -108,205 +200,248 @@
                 grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
                 gap: 10px;
             }
+            .role-section h2 {
+                font-size: 24px;
+            }
+            .header-logo {
+                height: 30px;
+            }
             .item-shop-button {
                 padding: 10px 20px;
-                font-size: 18px;
+                font-size: 16px;
+            }
+            .search-bar input {
+                font-size: 14px;
+                padding: 8px 12px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="item-shop-container">
+    <header>
+        <div class="header-left">
+            <img src="https://placehold.co/150x40/ff5e00/ffffff?text=OW2+Logo" alt="Overwatch 2 Logo" class="header-logo">
+            <div class="search-bar">
+                <input type="text" id="heroSearch" placeholder="Search heroes...">
+            </div>
+        </div>
         <a href="#" class="item-shop-button">ITEM SHOP</a>
-    </div>
+    </header>
 
-    <div class="hero-grid">
-        <div class="hero-card" onclick="goToCosmetics('dva')">
-            <img src="/assets/hero_icons/dva.webp" alt="D.Va">
-            <h3>D.Va</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('doomfist')">
-            <img src="/assets/hero_icons/doomfist.webp" alt="Doomfist">
-            <h3>Doomfist</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('hazard')">
-            <img src="/assets/hero_icons/hazard.webp" alt="Hazard">
-            <h3>Hazard</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('junkerqueen')">
-            <img src="/assets/hero_icons/junkerqueen.webp" alt="Junker Queen">
-            <h3>Junker Queen</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('mauga')">
-            <img src="/assets/hero_icons/mauga.webp" alt="Mauga">
-            <h3>Mauga</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('orisa')">
-            <img src="/assets/hero_icons/orisa.webp" alt="Orisa">
-            <h3>Orisa</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('ramattra')">
-            <img src="/assets/hero_icons/ramattra.webp" alt="Ramattra">
-            <h3>Ramattra</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('reinhardt')">
-            <img src="/assets/hero_icons/reinhardt.webp" alt="Reinhardt">
-            <h3>Reinhardt</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('roadhog')">
-            <img src="/assets/hero_icons/roadhog.webp" alt="Roadhog">
-            <h3>Roadhog</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('sigma')">
-            <img src="/assets/hero_icons/sigma.webp" alt="Sigma">
-            <h3>Sigma</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('winston')">
-            <img src="/assets/hero_icons/winston.webp" alt="Winston">
-            <h3>Winston</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('wreckingball')">
-            <img src="/assets/hero_icons/wreckingball.webp" alt="Wrecking Ball">
-            <h3>Wrecking Ball</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('zarya')">
-            <img src="/assets/hero_icons/zarya.webp" alt="Zarya">
-            <h3>Zarya</h3>
-        </div>
-
-        <div class="hero-card" onclick="goToCosmetics('ashe')">
-            <img src="/assets/hero_icons/ashe.webp" alt="Ashe">
-            <h3>Ashe</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('bastion')">
-            <img src="/assets/hero_icons/bastion.webp" alt="Bastion">
-            <h3>Bastion</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('cassidy')">
-            <img src="/assets/hero_icons/cassidy.webp" alt="Cassidy">
-            <h3>Cassidy</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('echo')">
-            <img src="/assets/hero_icons/echo.webp" alt="Echo">
-            <h3>Echo</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('freja')">
-            <img src="/assets/hero_icons/freja.webp" alt="Freja">
-            <h3>Freja</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('genji')">
-            <img src="/assets/hero_icons/genji.webp" alt="Genji">
-            <h3>Genji</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('hanzo')">
-            <img src="/assets/hero_icons/hanzo.webp" alt="Hanzo">
-            <h3>Hanzo</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('junkrat')">
-            <img src="/assets/hero_icons/junkrat.webp" alt="Junkrat">
-            <h3>Junkrat</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('mei')">
-            <img src="/assets/hero_icons/mei.webp" alt="Mei">
-            <h3>Mei</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('pharah')">
-            <img src="/assets/hero_icons/pharah.webp" alt="Pharah">
-            <h3>Pharah</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('reaper')">
-            <img src="/assets/hero_icons/reaper.webp" alt="Reaper">
-            <h3>Reaper</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('sojourn')">
-            <img src="/assets/hero_icons/sojourn.webp" alt="Sojourn">
-            <h3>Sojourn</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('soldier76')">
-            <img src="/assets/hero_icons/soldier76.webp" alt="Soldier: 76">
-            <h3>Soldier: 76</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('sombra')">
-            <img src="/assets/hero_icons/sombra.webp" alt="Sombra">
-            <h3>Sombra</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('symmetra')">
-            <img src="/assets/hero_icons/symmetra.webp" alt="Symmetra">
-            <h3>Symmetra</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('torbjorn')">
-            <img src="/assets/hero_icons/torbjorn.webp" alt="Torbjörn">
-            <h3>Torbjörn</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('tracer')">
-            <img src="/assets/hero_icons/tracer.webp" alt="Tracer">
-            <h3>Tracer</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('venture')">
-            <img src="/assets/hero_icons/venture.webp" alt="Venture">
-            <h3>Venture</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('widowmaker')">
-            <img src="/assets/hero_icons/widowmaker.webp" alt="Widowmaker">
-            <h3>Widowmaker</h3>
+    <div class="main-content-wrapper">
+        <div class="role-section">
+            <h2>Tank</h2>
+            <div class="hero-grid" id="tank-heroes">
+                <div class="hero-card" data-role="tank" data-name="dva" onclick="goToCosmetics('dva')">
+                    <img src="/assets/hero_icons/dva.webp" alt="D.Va">
+                    <h3>D.Va</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="doomfist" onclick="goToCosmetics('doomfist')">
+                    <img src="/assets/hero_icons/doomfist.webp" alt="Doomfist">
+                    <h3>Doomfist</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="hazard" onclick="goToCosmetics('hazard')">
+                    <img src="/assets/hero_icons/hazard.webp" alt="Hazard">
+                    <h3>Hazard</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="junkerqueen" onclick="goToCosmetics('junkerqueen')">
+                    <img src="/assets/hero_icons/junkerqueen.webp" alt="Junker Queen">
+                    <h3>Junker Queen</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="mauga" onclick="goToCosmetics('mauga')">
+                    <img src="/assets/hero_icons/mauga.webp" alt="Mauga">
+                    <h3>Mauga</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="orisa" onclick="goToCosmetics('orisa')">
+                    <img src="/assets/hero_icons/orisa.webp" alt="Orisa">
+                    <h3>Orisa</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="ramattra" onclick="goToCosmetics('ramattra')">
+                    <img src="/assets/hero_icons/ramattra.webp" alt="Ramattra">
+                    <h3>Ramattra</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="reinhardt" onclick="goToCosmetics('reinhardt')">
+                    <img src="/assets/hero_icons/reinhardt.webp" alt="Reinhardt">
+                    <h3>Reinhardt</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="roadhog" onclick="goToCosmetics('roadhog')">
+                    <img src="/assets/hero_icons/roadhog.webp" alt="Roadhog">
+                    <h3>Roadhog</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="sigma" onclick="goToCosmetics('sigma')">
+                    <img src="/assets/hero_icons/sigma.webp" alt="Sigma">
+                    <h3>Sigma</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="winston" onclick="goToCosmetics('winston')">
+                    <img src="/assets/hero_icons/winston.webp" alt="Winston">
+                    <h3>Winston</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="wreckingball" onclick="goToCosmetics('wreckingball')">
+                    <img src="/assets/hero_icons/wreckingball.webp" alt="Wrecking Ball">
+                    <h3>Wrecking Ball</h3>
+                </div>
+                <div class="hero-card" data-role="tank" data-name="zarya" onclick="goToCosmetics('zarya')">
+                    <img src="/assets/hero_icons/zarya.webp" alt="Zarya">
+                    <h3>Zarya</h3>
+                </div>
+            </div>
         </div>
 
-        <div class="hero-card" onclick="goToCosmetics('ana')">
-            <img src="/assets/hero_icons/ana.webp" alt="Ana">
-            <h3>Ana</h3>
+        <div class="role-section">
+            <h2>DPS</h2>
+            <div class="hero-grid" id="dps-heroes">
+                <div class="hero-card" data-role="dps" data-name="ashe" onclick="goToCosmetics('ashe')">
+                    <img src="/assets/hero_icons/ashe.webp" alt="Ashe">
+                    <h3>Ashe</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="bastion" onclick="goToCosmetics('bastion')">
+                    <img src="/assets/hero_icons/bastion.webp" alt="Bastion">
+                    <h3>Bastion</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="cassidy" onclick="goToCosmetics('cassidy')">
+                    <img src="/assets/hero_icons/cassidy.webp" alt="Cassidy">
+                    <h3>Cassidy</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="echo" onclick="goToCosmetics('echo')">
+                    <img src="/assets/hero_icons/echo.webp" alt="Echo">
+                    <h3>Echo</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="freja" onclick="goToCosmetics('freja')">
+                    <img src="/assets/hero_icons/freja.webp" alt="Freja">
+                    <h3>Freja</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="genji" onclick="goToCosmetics('genji')">
+                    <img src="/assets/hero_icons/genji.webp" alt="Genji">
+                    <h3>Genji</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="hanzo" onclick="goToCosmetics('hanzo')">
+                    <img src="/assets/hero_icons/hanzo.webp" alt="Hanzo">
+                    <h3>Hanzo</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="junkrat" onclick="goToCosmetics('junkrat')">
+                    <img src="/assets/hero_icons/junkrat.webp" alt="Junkrat">
+                    <h3>Junkrat</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="mei" onclick="goToCosmetics('mei')">
+                    <img src="/assets/hero_icons/mei.webp" alt="Mei">
+                    <h3>Mei</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="pharah" onclick="goToCosmetics('pharah')">
+                    <img src="/assets/hero_icons/pharah.webp" alt="Pharah">
+                    <h3>Pharah</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="reaper" onclick="goToCosmetics('reaper')">
+                    <img src="/assets/hero_icons/reaper.webp" alt="Reaper">
+                    <h3>Reaper</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="sojourn" onclick="goToCosmetics('sojourn')">
+                    <img src="/assets/hero_icons/sojourn.webp" alt="Sojourn">
+                    <h3>Sojourn</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="soldier76" onclick="goToCosmetics('soldier76')">
+                    <img src="/assets/hero_icons/soldier76.webp" alt="Soldier: 76">
+                    <h3>Soldier: 76</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="sombra" onclick="goToCosmetics('sombra')">
+                    <img src="/assets/hero_icons/sombra.webp" alt="Sombra">
+                    <h3>Sombra</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="symmetra" onclick="goToCosmetics('symmetra')">
+                    <img src="/assets/hero_icons/symmetra.webp" alt="Symmetra">
+                    <h3>Symmetra</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="torbjorn" onclick="goToCosmetics('torbjorn')">
+                    <img src="/assets/hero_icons/torbjorn.webp" alt="Torbjörn">
+                    <h3>Torbjörn</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="tracer" onclick="goToCosmetics('tracer')">
+                    <img src="/assets/hero_icons/tracer.webp" alt="Tracer">
+                    <h3>Tracer</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="venture" onclick="goToCosmetics('venture')">
+                    <img src="/assets/hero_icons/venture.webp" alt="Venture">
+                    <h3>Venture</h3>
+                </div>
+                <div class="hero-card" data-role="dps" data-name="widowmaker" onclick="goToCosmetics('widowmaker')">
+                    <img src="/assets/hero_icons/widowmaker.webp" alt="Widowmaker">
+                    <h3>Widowmaker</h3>
+                </div>
+            </div>
         </div>
-        <div class="hero-card" onclick="goToCosmetics('baptiste')">
-            <img src="/assets/hero_icons/baptiste.webp" alt="Baptiste">
-            <h3>Baptiste</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('brigitte')">
-            <img src="/assets/hero_icons/brigitte.webp" alt="Brigitte">
-            <h3>Brigitte</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('illari')">
-            <img src="/assets/hero_icons/illari.webp" alt="Illari">
-            <h3>Illari</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('juno')">
-            <img src="/assets/hero_icons/juno.webp" alt="Juno">
-            <h3>Juno</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('kiriko')">
-            <img src="/assets/hero_icons/kiriko.webp" alt="Kiriko">
-            <h3>Kiriko</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('lifeweaver')">
-            <img src="/assets/hero_icons/lifeweaver.webp" alt="Lifeweaver">
-            <h3>Lifeweaver</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('lucio')">
-            <img src="/assets/hero_icons/lucio.webp" alt="Lúcio">
-            <h3>Lúcio</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('mercy')">
-            <img src="/assets/hero_icons/mercy.webp" alt="Mercy">
-            <h3>Mercy</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('moira')">
-            <img src="/assets/hero_icons/moira.webp" alt="Moira">
-            <h3>Moira</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('wuyang')">
-            <img src="/assets/hero_icons/wuyang.webp" alt="Wuyang">
-            <h3>Wuyang</h3>
-        </div>
-        <div class="hero-card" onclick="goToCosmetics('zenyatta')">
-            <img src="/assets/hero_icons/zenyatta.webp" alt="Zenyatta">
-            <h3>Zenyatta</h3>
-        </div>
-    </div>
+
+        <div class="role-section">
+            <h2>Support</h2>
+            <div class="hero-grid" id="support-heroes">
+                <div class="hero-card" data-role="support" data-name="ana" onclick="goToCosmetics('ana')">
+                    <img src="/assets/hero_icons/ana.webp" alt="Ana">
+                    <h3>Ana</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="baptiste" onclick="goToCosmetics('baptiste')">
+                    <img src="/assets/hero_icons/baptiste.webp" alt="Baptiste">
+                    <h3>Baptiste</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="brigitte" onclick="goToCosmetics('brigitte')">
+                    <img src="/assets/hero_icons/brigitte.webp" alt="Brigitte">
+                    <h3>Brigitte</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="illari" onclick="goToCosmetics('illari')">
+                    <img src="/assets/hero_icons/illari.webp" alt="Illari">
+                    <h3>Illari</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="juno" onclick="goToCosmetics('juno')">
+                    <img src="/assets/hero_icons/juno.webp" alt="Juno">
+                    <h3>Juno</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="kiriko" onclick="goToCosmetics('kiriko')">
+                    <img src="/assets/hero_icons/kiriko.webp" alt="Kiriko">
+                    <h3>Kiriko</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="lifeweaver" onclick="goToCosmetics('lifeweaver')">
+                    <img src="/assets/hero_icons/lifeweaver.webp" alt="Lifeweaver">
+                    <h3>Lifeweaver</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="lucio" onclick="goToCosmetics('lucio')">
+                    <img src="/assets/hero_icons/lucio.webp" alt="Lúcio">
+                    <h3>Lúcio</h3>
+                </div>
+                <div class="hero-card" data-role="support" data-name="mercy" onclick="goToCosmetics('mercy')">
+                    <img src="/assets/hero_icons/mercy.webp" alt="Mercy">
+                    <h3>Mercy</h3></div>
+                <div class="hero-card" data-role="support" data-name="moira" onclick="goToCosmetics('moira')">
+                    <img src="/assets/hero_icons/moira.webp" alt="Moira">
+                    <h3>Moira</h3></div>
+                <div class="hero-card" data-role="support" data-name="wuyang" onclick="goToCosmetics('wuyang')">
+                    <img src="/assets/hero_icons/wuyang.webp" alt="Wuyang">
+                    <h3>Wuyang</h3></div>
+                <div class="hero-card" data-role="support" data-name="zenyatta" onclick="goToCosmetics('zenyatta')">
+                    <img src="/assets/hero_icons/zenyatta.webp" alt="Zenyatta">
+                    <h3>Zenyatta</h3></div></div></div></div>
+    <footer><p>This site is not affiliated with Blizzard Entertainment and falls under Fair Use.</p></footer>
 
     <script>
         function goToCosmetics(heroName) {
             const encodedHeroName = encodeURIComponent(heroName.toLowerCase().replace(/[^a-z0-9]/g, ''));
             window.location.href = `/cosmetics?hero=${encodedHeroName}&type=none`;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('heroSearch');
+            const heroCards = document.querySelectorAll('.hero-card');
+
+            searchInput.addEventListener('keyup', (event) => {
+                const searchTerm = event.target.value.toLowerCase();
+
+                heroCards.forEach(card => {
+                    const heroName = card.querySelector('h3').textContent.toLowerCase();
+                    if (heroName.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 
 </body>
