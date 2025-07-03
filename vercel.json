@@ -1,1 +1,13 @@
-{"version":2}
+{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/:page",
+      "destination": "/pages/:page"
+    },
+    {
+      "source": "/",
+      "destination": "/pages/home"
+    }
+  ]
+}
