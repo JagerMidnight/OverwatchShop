@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Classic",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Classic+Skin"
+    },
+    {
+        "name": "Shiver",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Shiver+Skin"
+    },
+    {
+        "name": "Nevermore",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Nevermore+Skin"
+    },
+    {
+        "name": "Dracula",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Dracula+Skin"
+    },
+    {
+        "name": "Soldier: 24",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Soldier24+Skin"
+    },
+    {
+        "name": "Wight",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Wight+Skin"
+    },
+    {
+        "name": "Hellfire",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Hellfire+Skin"
+    },
+    {
+        "name": "Rat King",
+        "image": "https://placehold.co/150x100/333333/FFFFFF?text=Rat+King+Skin"
+    }
+]
