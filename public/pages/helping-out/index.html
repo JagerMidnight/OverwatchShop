@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contribute to Overwatch Shop & Hero Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans antialiased p-8">
+    <div class="max-w-4xl mx-auto bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-center text-orange-400 mb-6">
+            Want to help out this Fan-Made Vercel Site?
+        </h1>
+        <p class="text-lg text-center text-gray-300 mb-8">
+            This site showcases the Overwatch Shop and Hero Gallery, and we'd love your help making it even better!
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-orange-300 mb-4">No Coding Experience? No Problem!</h2>
+                <p class="text-gray-200 leading-relaxed">
+                    If you've got an idea or found something that needs fixing but aren't sure how to code, just <a href="https://github.com/JagerMidnight/OverwatchShop/issues" class="text-blue-400 hover:text-blue-300 underline font-medium" target="_blank" rel="noopener noreferrer">submit an issue on GitHub</a>.
+                    A contributor will pick it up and handle the coding side of things. It's a fantastic way to contribute!
+                </p>
+            </div>
+            <div class="bg-gray-700 p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-orange-300 mb-4">Got Coding Skills?</h2>
+                <p class="text-gray-200 leading-relaxed">
+                    If you have some coding knowledge and want to dive in, feel free to <a href="https://github.com/JagerMidnight/OverwatchShop/pulls" class="text-blue-400 hover:text-blue-300 underline font-medium" target="_blank" rel="noopener noreferrer">create a pull request</a>!
+                    Once your request is reviewed and looks good, we'll get it merged in. Your contributions are super valuable!
+                </p>
+            </div>
+        </div>
+
+        ---
+
+        <div class="mt-12">
+            <h2 class="text-3xl font-bold text-center text-orange-400 mb-6">
+                Understanding the Project Files (for PRs)
+            </h2>
+            <p class="text-lg text-gray-300 mb-6 text-center">
+                When you're submitting a pull request, understanding where things go can be a huge help. Here's a quick rundown of some key files and directories:
+            </p>
+            <ul class="space-y-4 text-gray-200">
+                <li class="bg-gray-700 p-4 rounded-md shadow-sm">
+                    <strong class="text-orange-300">`_heroinfo/heroname.json`</strong>: Stores hero information as seen in-game as "Hero Information".
+                </li>
+                <li class="bg-gray-700 p-4 rounded-md shadow-sm">
+                    <strong class="text-orange-300">`assets/cosmetics/type/heroname.json`</strong>: Stores a list of "cosmetics" of a specific `type` for the specified hero. <em class="text-gray-400">Example: `assets/cosmetics/skins/reaper.json`.</em>
+                </li>
+                <li class="class="bg-gray-700 p-4 rounded-md shadow-sm">
+                    <strong class="text-orange-300">`vercel.json`</strong>: Vercel site configuration.
+                </li>
+                <li class="bg-gray-700 p-4 rounded-md shadow-sm">
+                    <strong class="text-orange-300">`assets/_heroicons/heroname.webp`</strong>: Contains a list of icons in a compressed and recommended format for web assets. <em class="text-orange-400 font-semibold">Please make sure these are `.webp` files!</em>
+                </li>
+            </ul>
+            <p class="text-xl text-center text-orange-400 font-bold mt-10">
+                Thank you for being a contributor!
+            </p>
+        </div>
+    </div>
+</body>
+</html>
