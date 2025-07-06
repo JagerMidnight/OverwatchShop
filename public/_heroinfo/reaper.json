@@ -39,6 +39,11 @@
                 "name": "Death's Shadow",
                 "icon": "https://placehold.co/40x40/000000/FFFFFF?text=D",
                 "description": "Shadow Step reloads Hellfire Shotguns and has 25% increased range."
+            },
+            {
+                "name": "Soul Reaving",
+                "icon": "https://placehold.co/40x40/000000/FFFFFF?text=O",
+                "description": "Collect  Soul Globes from dead enemies to restore 50 health."
             }
         ],
         "major": [
