@@ -226,57 +226,6 @@
     </div>
 
     <script>
-        const heroesData = {
-            "dva": { name: "D.Va", role: "TANK", description: "D.Va is a former pro gamer who pilots a pink mech suit, using its powerful fusion cannons and defense matrix to protect her team and dish out damage. She can eject from her mech and continue fighting as a nimble pilot." },
-            "doomfist": { name: "Doomfist", role: "TANK", description: "A charismatic and ruthless leader, Doomfist is a master of martial arts and wears a powerful gauntlet. He uses his abilities to punch through enemy lines, uppercut foes, and deliver devastating ground slams." },
-            "hazard": { name: "Hazard", role: "DAMAGE", description: "A mysterious operative specializing in area denial and toxic warfare. Hazard controls the battlefield with corrosive traps and a venomous arsenal, slowly weakening enemies before delivering the final blow." },
-            "junkerqueen": { name: "Junker Queen", role: "TANK", description: "The ruthless ruler of Junkertown, Junker Queen commands the battlefield with her massive axe and magnetic gauntlet. She thrives in close quarters, dealing heavy damage and inspiring her allies." },
-            "mauga": { name: "Mauga", role: "TANK", description: "A towering force of nature with two chainguns, Mauga charges into battle with reckless abandon. His abilities allow him to sustain himself in the fight and create chaos among enemy ranks." },
-            "orisa": { name: "Orisa", role: "TANK", description: "A quadrupedal robot protector, Orisa anchors her team with a powerful energy javelin and a protective Fortify ability. She can pull enemies together and unleash a devastating ultimate." },
-            "ramattra": { name: "Ramattra", role: "TANK", description: "A conflicted omnic leader, Ramattra can switch between Omnic Form, where he projects a barrier, and Nemesis Form, where he gains increased armor and a powerful punch." },
-            "reinhardt": { name: "Reinhardt", role: "TANK", description: "A chivalrous German crusader, Reinhardt charges into battle with his rocket-powered hammer and a massive energy barrier, protecting his allies and smashing his foes." },
-            "roadhog": { name: "Roadhog", role: "TANK", description: "A ruthless, hulking killer from the Australian Outback, Roadhog uses his Chain Hook to pull enemies close and his Scrap Gun to blast them into oblivion. He can also heal himself with a deep breath." },
-            "sigma": { name: "Sigma", role: "TANK", description: "An eccentric astrophysicist who gained control over gravity after an orbital experiment went wrong. Sigma manipulates the battlefield with hyperspheres and a kinetic grasp." },
-            "winston": { name: "Winston", role: "TANK", description: "A super-intelligent, genetically engineered gorilla and brilliant scientist. Winston leaps into battle with his Tesla Cannon, deploying a protective barrier and unleashing primal rage." },
-            "wreckingball": { name: "Wrecking Ball", role: "TANK", description: "An ingenious hamster named Hammond, who pilots a heavily armed, spherical mech. Wrecking Ball rolls through enemies, deploys mines, and uses his grappling claw for high-speed maneuvers." },
-            "zarya": { name: "Zarya", role: "TANK", description: "A strong Russian weightlifter and soldier, Zarya uses her particle cannon to emit powerful energy barriers that absorb damage and increase her weapon's power. She can also pull enemies into a Graviton Surge." },
-            "ashe": { name: "Ashe", role: "DAMAGE", description: "The ambitious and calculating leader of the Deadlock Gang, Ashe wields a lever-action rifle, dynamite, and her loyal omnic butler B.O.B. to dominate the battlefield." },
-            "bastion": { name: "Bastion", role: "DAMAGE", description: "A curious and peaceful omnic combat automaton that can transform between a mobile recon mode and a stationary, powerful sentry mode. Bastion also has a devastating Artillery ultimate." },
-            "cassidy": { name: "Cassidy", role: "DAMAGE", description: "A former Blackwatch operative and skilled gunslinger, Cassidy uses his Peacekeeper revolver for precision shots and can unleash a powerful Deadeye ultimate to eliminate multiple targets." },
-            "echo": { name: "Echo", role: "DAMAGE", description: "An adaptive omnic with a powerful artificial intelligence, Echo can fly, fire sticky bombs, and duplicate enemy heroes, gaining their abilities for a short time." },
-            "freja": { name: "Freja", role: "DAMAGE", description: "A swift and agile warrior from the northern lands, Freja wields twin blades and uses elemental magic to empower her attacks and evade enemies. She excels at disrupting enemy formations." },
-            "genji": { name: "Genji", role: "DAMAGE", description: "A cyborg ninja who has embraced his augmented body, Genji deflects projectiles, dashes through enemies, and unleashes a powerful Dragonblade ultimate." },
-            "hanzo": { name: "Hanzo", role: "DAMAGE", description: "A master archer and assassin, Hanzo uses his bow for precise shots, can reveal enemies with Sonic Arrow, and unleash a Spirit Dragon ultimate that devastates foes." },
-            "junkrat": { name: "Junkrat", role: "DAMAGE", description: "An explosives-obsessed anarchist from the Australian Outback, Junkrat launches bouncing grenades, deploys steel traps, and can unleash a remote-controlled Rip-Tire." },
-            "mei": { name: "Mei", role: "DAMAGE", description: "A brilliant climatologist who uses her Endothermic Blaster to freeze enemies and create ice walls. Mei can also summon a localized blizzard to control the battlefield." },
-            "pharah": { name: "Pharah", role: "DAMAGE", description: "A highly decorated security chief who wears a combat armor suit, Pharah soars through the air with her jump jet and unleashes barrages of rockets from above." },
-            "reaper": { name: "Reaper", role: "DAMAGE", description: "Some speak of a black-robed terrorist known only as the Reaper. His identity and motives are a mystery. What is known is that where he appears, death follows." },
-            "sojourn": { name: "Sojourn", role: "DAMAGE", description: "A highly mobile, cybernetically enhanced captain from Canada, Sojourn uses her railgun for powerful primary and secondary fire, and can slide into battle with a power slide." },
-            "soldier76": { name: "Soldier: 76", role: "DAMAGE", description: "A vigilante who operates outside the law, Soldier: 76 is a highly trained combat veteran who uses his pulse rifle, biotic field for healing, and tactical visor for auto-aiming." },
-            "sombra": { name: "Sombra", role: "DAMAGE", description: "A notorious hacker and infiltrator, Sombra uses her machine pistol, can hack enemies and health packs, and becomes invisible to sneak behind enemy lines." },
-            "symmetra": { name: "Symmetra", role: "DAMAGE", description: "An architect who manipulates hard light, Symmetra deploys sentry turrets, projects energy barriers, and can create teleporters to quickly move her team." },
-            "torbjorn": { name: "Torbjörn", role: "DAMAGE", description: "A brilliant engineer who deploys auto-firing turrets and can unleash a molten core, covering an area with pools of slag. Torbjörn also wields a rivet gun and a forge hammer." },
-            "tracer": { name: "Tracer", role: "DAMAGE", description: "An adventurous former pilot who can manipulate her own time, Tracer blinks through space, recalls her position, and throws pulse bombs to quickly eliminate enemies." },
-            "venture": { name: "Venture", role: "DAMAGE", description: "A daring archaeologist and explorer who wields a powerful drill, Venture can burrow underground, unleash seismic charges, and create tremors to disrupt enemies." },
-            "widowmaker": { name: "Widowmaker", role: "DAMAGE", description: "A ruthless assassin and sniper, Widowmaker eliminates targets from afar with her sniper rifle, deploys venom mines, and uses her grappling hook for agile positioning." },
-            "ana": { name: "Ana", role: "SUPPORT", description: "A veteran sniper and one of Overwatch's founding members, Ana heals allies and damages enemies with her Biotic Rifle, can put foes to sleep, and boost allies with Nano Boost." },
-            "baptiste": { name: "Baptiste", role: "SUPPORT", description: "A combat medic and former Talon operative, Baptiste uses his Biotic Launcher to heal allies or damage enemies, deploys Immortality Field to save teammates, and can amplify damage with Amplification Matrix." },
-            "brigitte": { name: "Brigitte", role: "SUPPORT", description: "A valiant squire and engineer, Brigitte protects her allies with her Barrier Shield, heals them with Repair Pack, and can stun enemies with her Whip Shot." },
-            "illari": { name: "Illari", role: "SUPPORT", description: "A solar-powered healer from Peru, Illari uses her Solar Rifle to heal allies and unleash powerful solar energy blasts. She can also deploy a Healing Pylon and unleash a Sunstruck ultimate." },
-            "juno": { name: "Juno", role: "SUPPORT", description: "A nimble and elusive support hero, Juno uses sound waves to heal allies and disorient enemies. Her abilities allow her to quickly reposition and provide crucial utility to her team." },
-            "kiriko": { name: "Kiriko", role: "SUPPORT", description: "A swift and agile protector, Kiriko uses her Ofuda to heal allies, can teleport to teammates, and throws Kunai for precise damage. Her ultimate creates a path for allies to rush forward." },
-            "lifeweaver": { name: "Lifeweaver", role: "SUPPORT", description: "A brilliant botanist who uses biolight technology to heal and protect allies. Lifeweaver can create platforms, pull teammates to safety, and deploy a massive Tree of Life." },
-            "lucio": { name: "Lúcio", role: "SUPPORT", description: "An international celebrity and freedom fighter, Lúcio uses his Sonic Amplifier to heal allies or boost their speed, and can create a Sound Barrier to protect his team." },
-            "mercy": {
-                name: "Mercy",
-                role: "SUPPORT",
-                description: "A guardian angel and brilliant scientist, Mercy heals and boosts allies with her Caduceus Staff, can fly to teammates, and resurrects fallen comrades."
-            },
-            "moira": { name: "Moira", role: "SUPPORT", description: "A brilliant but controversial geneticist, Moira drains health from enemies and heals allies with her Biotic Grasp, can fade through space, and unleashes a powerful Coalescence beam." },
-            "wuyang": { name: "Wuyang", role: "SUPPORT", description: "A mystical healer from the East, Wuyang channels ancient energies to mend wounds and protect allies. Her abilities focus on sustained healing and defensive buffs for her team." },
-            "zenyatta": { name: "Zenyatta", role: "SUPPORT", description: "An omnic monk who seeks spiritual enlightenment, Zenyatta heals allies with Orb of Harmony, debuffs enemies with Orb of Discord, and becomes invulnerable while healing multiple allies with Transcendence." }
-        };
-
         let currentHeroId = null;
 
         function getHeroNameFromUrl() {
@@ -289,7 +238,7 @@
             const hero = heroesData[currentHeroId];
 
             if (hero) {
-                document.title = `Overwatch 2 - ${hero.name}`;
+                document.title = `Overwatch Shop - ${hero.name}`;
                 document.getElementById('hero-display-name').innerText = hero.name.toUpperCase();
                 document.getElementById('hero-role').innerText = hero.role;
                 document.getElementById('hero-description').innerText = hero.description;
