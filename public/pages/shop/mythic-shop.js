@@ -56,3 +56,5 @@ const mythicData = {
         }
     ]
 };
+
+export default mythicData;
