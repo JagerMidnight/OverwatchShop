@@ -67,7 +67,7 @@ let currentActiveTab = 'shop';
 
 const renderItemList = (title, items) => {
     let itemsHtml = '';
-    if (items && items.length > 0) {
+    if (items && Array.isArray(items) && items.length > 0) {
         itemsHtml = `
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 ${items.map(item => `
@@ -83,7 +83,7 @@ const renderItemList = (title, items) => {
             </div>
         `;
     } else {
-        itemsHtml = '<p class="text-gray-400">No items in this section yet.</p>';
+        itemsHtml = `<p class="text-gray-400 text-center py-4">No items available in this section yet.</p>`;
     }
 
     return `
@@ -95,33 +95,60 @@ const renderItemList = (title, items) => {
 };
 
 const renderTabContent = async (tabName) => {
-    tabContent.innerHTML = '<div class="text-center text-gray-400 py-10">Loading items...</div>';
+    tabContent.innerHTML = '';
 
     try {
         let contentHtml = '';
+
         if (tabName === 'shop') {
-            contentHtml = `
-                <h2 class="text-4xl font-extrabold text-green-400 mb-6 text-center">Shop</h2>
-                ${renderItemList('Featured', shopData.featured)}
-            `;
+            contentHtml = `<h2 class="text-4xl font-extrabold text-green-400 mb-6 text-center">Shop</h2>`;
+            if (shopData && shopData.featured && Array.isArray(shopData.featured)) {
+                contentHtml += renderItemList('Featured', shopData.featured);
+            } else {
+                contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md mb-8"><p class="text-gray-400 text-center py-4">Shop data is currently unavailable or empty.</p></div>`;
+            }
         } else if (tabName === 'mythic') {
-            contentHtml = `
-                <h2 class="text-4xl font-extrabold text-purple-400 mb-6 text-center">Mythic Shop</h2>
-                ${renderItemList('Featured', mythicData.featured)}
-                ${renderItemList('Available Soon', mythicData.availableSoon)}
-                ${renderItemList('Previous Mythics', mythicData.previous)}
-                ${renderItemList('Aspects', mythicData.aspects)}
-            `;
+            contentHtml = `<h2 class="text-4xl font-extrabold text-purple-400 mb-6 text-center">Mythic Shop</h2>`;
+            if (mythicData) {
+                if (mythicData.featured && Array.isArray(mythicData.featured)) {
+                    contentHtml += renderItemList('Featured', mythicData.featured);
+                } else {
+                    contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md mb-4"><p class="text-gray-400 text-center py-4">Featured Mythic items are currently unavailable.</p></div>`;
+                }
+
+                if (mythicData.availableSoon && Array.isArray(mythicData.availableSoon)) {
+                    contentHtml += renderItemList('Available Soon', mythicData.availableSoon);
+                } else {
+                    contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md mb-4"><p class="text-gray-400 text-center py-4">No Mythic items available soon.</p></div>`;
+                }
+
+                if (mythicData.previous && Array.isArray(mythicData.previous)) {
+                    contentHtml += renderItemList('Previous Mythics', mythicData.previous);
+                } else {
+                    contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md mb-4"><p class="text-gray-400 text-center py-4">No previous Mythic items to display.</p></div>`;
+                }
+
+                 if (mythicData.aspects && Array.isArray(mythicData.aspects)) {
+                    contentHtml += renderItemList('Aspects', mythicData.aspects);
+                } else {
+                    contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md mb-4"><p class="text-gray-400 text-center py-4">No Mythic Aspects available.</p></div>`;
+                }
+            } else {
+                contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md"><p class="text-red-400 text-center py-4">Mythic shop data failed to load or is unavailable.</p></div>`;
+            }
+
         } else if (tabName === 'seasonal') {
-            contentHtml = `
-                <h2 class="text-4xl font-extrabold text-yellow-400 mb-6 text-center">Seasonal Shop</h2>
-                ${renderItemList('Seasonal Items', seasonalData.seasonal)}
-            `;
+            contentHtml = `<h2 class="text-4xl font-extrabold text-yellow-400 mb-6 text-center">Seasonal Shop</h2>`;
+            if (seasonalData && seasonalData.seasonal && Array.isArray(seasonalData.seasonal)) {
+                contentHtml += renderItemList('Seasonal Items', seasonalData.seasonal);
+            } else {
+                contentHtml += `<div class="p-4 bg-gray-800 rounded-lg shadow-md mb-8"><p class="text-gray-400 text-center py-4">Seasonal shop data is currently unavailable or empty.</p></div>`;
+            }
         }
         tabContent.innerHTML = contentHtml;
     } catch (error) {
-        console.error("Error loading tab data:", error);
-        tabContent.innerHTML = '<div class="text-center text-red-400 py-10">Failed to load shop data. Check module imports.</div>';
+        console.error("An unexpected error occurred while rendering tab content:", error);
+        tabContent.innerHTML = '<div class="text-center text-red-400 py-10">An error occurred while displaying shop items. Please try again.</div>';
     }
 };
 
@@ -129,8 +156,11 @@ const handleTabClick = (event) => {
     const clickedTab = event.target.id.replace('tab-', '');
     if (clickedTab === currentActiveTab) return;
 
-    document.getElementById(`tab-${currentActiveTab}`).classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'scale-105');
-    document.getElementById(`tab-${currentActiveTab}`).classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+    const oldActiveTabElement = document.getElementById(`tab-${currentActiveTab}`);
+    if (oldActiveTabElement) {
+        oldActiveTabElement.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'scale-105');
+        oldActiveTabElement.classList.add('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
+    }
 
     event.target.classList.remove('bg-gray-700', 'text-gray-300', 'hover:bg-gray-600');
     event.target.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'scale-105');
