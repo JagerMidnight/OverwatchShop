@@ -58,7 +58,7 @@
         };
 
         const fetchMythicData = async () => {
-            const response = await fetch('mythic-data.js');
+            const response = await fetch('pages/shop/mythic-shop.js');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
