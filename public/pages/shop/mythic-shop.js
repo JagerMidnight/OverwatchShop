@@ -15,22 +15,6 @@ const mythicData = {
       description: "Weapons flare with dark energy, haunting visuals and kill effects."
     }
   ],
-  availableSoon: [
-    {
-      name: "Heart of Hope Juno",
-      imageUrl: "https://placehold.co/150x150/FF00AA/FFFFFF?text=Juno+Mythic",
-      type: "Mythic Skin",
-      price: "80 Mythic Prisms",
-      description: "Unique thematic elements with customizable gilded and iridescent styles."
-    },
-    {
-      name: "Pixiu Zenyatta",
-      imageUrl: "https://placehold.co/150x150/00CCFF/FFFFFF?text=Pixiu+Zenyatta",
-      type: "Mythic Skin",
-      price: "80 Mythic Prisms",
-      description: "Embrace fortune and power with this divine monk design."
-    }
-  ],
   previous: [
     {
       name: "Cyber Demon Genji",
@@ -145,6 +129,23 @@ const mythicData = {
       type: "Mythic Aspect",
       price: "20 Mythic Prisms",
       description: "Gold-plated armor look for the Horang skin."
+    }
+  ],
+
+  availableSoon: [
+    {
+      name: "Heart of Hope Juno",
+      imageUrl: "https://placehold.co/150x150/FF00AA/FFFFFF?text=Juno+Mythic",
+      type: "Mythic Skin",
+      price: "80 Mythic Prisms",
+      description: "Unique thematic elements with customizable gilded and iridescent styles."
+    },
+    {
+      name: "Pixiu Zenyatta",
+      imageUrl: "https://placehold.co/150x150/00CCFF/FFFFFF?text=Pixiu+Zenyatta",
+      type: "Mythic Skin",
+      price: "80 Mythic Prisms",
+      description: "Embrace fortune and power with this divine monk design."
     }
   ]
 };
