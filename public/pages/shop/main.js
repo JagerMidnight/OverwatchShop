@@ -1,6 +1,6 @@
-import shopData from './pages/shop/shop.js';
-import mythicData from './pages/shop/mythic-shop.js';
-import seasonalData from './pages/shop/seasonal-shop.js';
+import shopData from 'pages/shop/shop.js';
+import mythicData from 'pages/shop/mythic-shop.js';
+import seasonalData from 'pages/shop/seasonal-shop.js';
 
 const getNextTuesday12PMPDT = () => {
     const now = new Date();
